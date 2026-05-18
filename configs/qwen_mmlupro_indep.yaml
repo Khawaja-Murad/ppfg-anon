@@ -1,0 +1,21 @@
+# Day-13 V13.D: Qwen2.5-7B-Instruct on MMLU-Pro (law+biology+philosophy
+# stratified, n=500), independent baseline. Anchors the V13.D PPFG
+# comparisons. Three seeds run separately via SEED= sbatch override.
+# Stratification seed is fixed at 42 inside the task loader for
+# cross-seed reproducibility.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_mmlupro_indep"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "mmlu_pro"
+  n_problems: 500

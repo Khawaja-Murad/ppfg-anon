@@ -1,0 +1,21 @@
+# V13.C GPQA-Diamond PPFG-random control, Math-Shepherd PRM (default).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_gpqa_ppfg_random"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "random"
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  max_injections_per_chain: 2
+
+task:
+  name: "gpqa_diamond"
+  n_problems: 198

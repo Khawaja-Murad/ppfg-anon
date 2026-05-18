@@ -1,0 +1,29 @@
+# Day-5 overnight stretch (2026-05-14 ~04:00 EDT): random-injection control
+# at n=100 × 3 seeds, MATCHED on every axis to the Day-5 PPFG-stag headline
+# sweep except for `injection_rule`. This isolates the rule, not τ_kill.
+#
+# Inherits the same base as `configs/ppfg_stag.yaml` (i.e., `configs/ppfg.yaml`):
+#   - prune_threshold = 0.4 (τ_kill)
+#   - n_chains = 8
+#   - extract_threshold = 0.6, k_min = 2, k_max = 8, max_injections_per_chain = 2
+#   - injection_format = bracket_bullet
+# and overrides only:
+#   - injection_rule: random
+#   - task.n_problems: 100 (the Day-5 headline sweep cap; ppfg.yaml defaults to 500)
+#
+# Per the lead author's directive 2026-05-14 03:50 EDT: this is the matched-comparison
+# version. The Day-4 cell-ζ random control at τ_kill=0.5 is informative but
+# confounded vs PPFG-stag (τ_kill=0.4); the §5.3 mechanism-validation claim
+# requires same-config-except-the-knob, which is this file.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "ppfg_random_n100_math500"
+
+ppfg:
+  injection_rule: "random"
+
+task:
+  n_problems: 100

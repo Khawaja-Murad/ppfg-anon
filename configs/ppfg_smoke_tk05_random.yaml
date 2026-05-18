@@ -1,0 +1,13 @@
+# Smoke ζ: random injection rule. REQUIRED ablation per CLAUDE.md §2:
+# "the critical control — if it matches compat performance, the mechanism
+# reduces to 'more demonstrations help' and the paper is weaker."
+# Day-6 deliverable advanced into Day 4.
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_random"
+
+ppfg:
+  injection_rule: "random"

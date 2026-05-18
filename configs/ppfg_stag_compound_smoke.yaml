@@ -1,0 +1,13 @@
+# Day-7 compound-gate smoke (20 problems, seed 42 only) — sanity-check that
+# the stagnation_compound rule fires at all before launching the 3-seed n=100
+# cell (configs/ppfg_stag_compound.yaml).
+
+defaults:
+  - ppfg_stag_compound
+
+experiment:
+  name: "ppfg_stag_compound_smoke_math500"
+
+task:
+  name: "math500"
+  n_problems: 20

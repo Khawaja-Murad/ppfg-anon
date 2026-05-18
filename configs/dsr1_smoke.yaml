@@ -1,0 +1,20 @@
+# Day-8 P3.1 smoke: DeepSeek-R1-Distill-Qwen-7B + Math-Shepherd PRM, n=20, seed 42, indep.
+# R1-distill style reasoning may produce different step structure (<think> tags);
+# smoke verifies step separator + answer extraction work.
+
+defaults:
+  - default
+
+experiment:
+  name: "dsr1_smoke_math500"
+  seed: 42
+
+model:
+  base_model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 20

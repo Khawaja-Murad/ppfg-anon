@@ -1,0 +1,20 @@
+# V13.B-replacement PPFG-stag on NuminaMath-CoT.
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_numina_ppfg_stag"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  max_injections_per_chain: 2
+
+task:
+  name: "numina_math"
+  n_problems: -1

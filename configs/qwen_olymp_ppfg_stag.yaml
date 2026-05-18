@@ -1,0 +1,20 @@
+# Day-13 V13.B: Qwen2.5-7B-Instruct on OlympiadBench-math, n=500,
+# PPFG-stagnation. Hypers MATCHED to Day-5 configs/ppfg_stag.yaml (τ_kill=0.4,
+# k_min=2, k_max=8, extract_threshold=0.6, max_injections_per_chain=2); only
+# task.name and task.n_problems change.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_olymp_ppfg_stag"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "olympiadbench_math"
+  n_problems: 500

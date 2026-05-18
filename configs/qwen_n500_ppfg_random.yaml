@@ -1,0 +1,18 @@
+# Day-8 Tier-A: Qwen2.5-7B-Instruct anchor at n=500, PPFG-random control.
+# Matched to qwen_n500_ppfg_stag.yaml on every axis except injection_rule.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_random_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "random"
+
+task:
+  name: "math500"
+  n_problems: 500

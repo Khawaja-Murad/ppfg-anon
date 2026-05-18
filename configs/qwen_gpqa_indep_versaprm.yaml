@@ -1,0 +1,23 @@
+# V13.C GPQA-Diamond independent baseline. Math-Shepherd PRM (default).
+# Pair with qwen_gpqa_ppfg_stag and qwen_gpqa_ppfg_random for the
+# Math-Shepherd half of V13.C; VersaPRM half blocked on V13.0 smoke.
+# n=198 = full gpqa_diamond. 4-choice MCQ; random-baseline mode_rate floor ~0.31 with N=8.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_gpqa_indep_versaprm"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+  prm: "UW-Madison-Lee-Lab/Llama-PRM800K"
+  prm_kind: "versaprm"
+  gpu_memory_utilization: 0.45
+
+baseline:
+  method: "independent"
+
+task:
+  name: "gpqa_diamond"
+  n_problems: 198

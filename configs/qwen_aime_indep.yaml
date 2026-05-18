@@ -1,0 +1,19 @@
+# Day-13 V13.A: Qwen2.5-7B-Instruct on AIME 2024+2025 (n=60), independent
+# baseline. Anchors the V13.A PPFG comparisons. Three seeds run separately
+# via SEED= sbatch override.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_aime_indep"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "aime"
+  n_problems: 60

@@ -1,0 +1,16 @@
+# Day-11 compound-gate n=500 cell at looser threshold prm_low_t=0.70.
+# Per Day-11 Phase 3 — second validated measurement, testing the bucket-purity
+# degradation predicted by the Day-5 n=100 dry-run (9.1% → 16.4% allow-rate
+# ratio; ~3× event density at this looser threshold).
+
+defaults:
+  - ppfg_stag_compound
+
+experiment:
+  name: "ppfg_stag_compound_n500_t070_math500"
+
+ppfg:
+  prm_low_t: 0.70
+
+task:
+  n_problems: 500

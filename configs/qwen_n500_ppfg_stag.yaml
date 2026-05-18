@@ -1,0 +1,20 @@
+# Day-8 Tier-A: Qwen2.5-7B-Instruct anchor at n=500, PPFG-stagnation.
+# Hypers MATCHED to Day-5 configs/ppfg_stag.yaml (τ_kill=0.4, k_min=2, k_max=8,
+# extract_threshold=0.6, max_injections_per_chain=2, injection_format=bracket_bullet);
+# only task.n_problems lifts from 100 to 500.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 500

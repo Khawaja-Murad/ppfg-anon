@@ -1,0 +1,16 @@
+# Day-5 PPFG headline sweep config — stagnation injection rule.
+# All other PPFG hyperparameters inherit from configs/ppfg.yaml (and default.yaml).
+# Headline: diversity-rescue claim at 100 problems × 3 seeds × N=8.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "ppfg_stag_math500"
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 100    # override ppfg.yaml's 500 — Day-5 headline is 100-prob × 3-seed

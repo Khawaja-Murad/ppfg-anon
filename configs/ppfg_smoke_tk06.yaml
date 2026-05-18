@@ -1,0 +1,12 @@
+# Third smoke at τ_kill=0.6 to triangulate the prune-threshold sweep.
+# 0.4 → 15% injection rate, 0.5 → 30% injection rate; 0.6 should land
+# higher still. Locks the value for Day 5 full sweep.
+
+defaults:
+  - ppfg_smoke
+
+experiment:
+  name: "ppfg_smoke_math500_tk06"
+
+population:
+  prune_threshold: 0.6

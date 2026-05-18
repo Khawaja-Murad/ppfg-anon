@@ -1,0 +1,17 @@
+# V13.B-replacement independent baseline on NuminaMath-CoT.
+# 99 problems (test split; one row dropped on load — no boxed answer).
+defaults:
+  - default
+
+experiment:
+  name: "qwen_numina_indep"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "numina_math"
+  n_problems: -1

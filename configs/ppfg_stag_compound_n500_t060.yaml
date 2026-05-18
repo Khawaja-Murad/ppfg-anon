@@ -1,0 +1,15 @@
+# Day-11 compound-gate n=500 cell at strict threshold prm_low_t=0.60.
+# Validates the Day-9 n=100 Table 3b finding (5 events / 300 problems, mode_rate
+# Δ +0.0033 ± 0.0404 within seed σ) at full MATH500 scale. Per Day-11 Phase 3.
+
+defaults:
+  - ppfg_stag_compound
+
+experiment:
+  name: "ppfg_stag_compound_n500_t060_math500"
+
+ppfg:
+  prm_low_t: 0.60
+
+task:
+  n_problems: 500

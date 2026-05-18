@@ -1,0 +1,19 @@
+# Day-11.5 smoke: n=10 single-seed indep on GSM8K. Verifies the new task
+# loader, answer-extraction regex, and is_correct comparator work
+# end-to-end. Pass@1 should be near-ceiling (≥0.7) on Qwen+gsm8k.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_smoke_gsm8k_indep"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "gsm8k"
+  n_problems: 10

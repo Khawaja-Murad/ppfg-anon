@@ -1,0 +1,12 @@
+# Day-11 Phase 3 smoke (10 problems, seed 42 only) — sanity-check that the
+# t060/t070 configs load and vLLM allocates correctly before submitting the 6-cell
+# n=500 sweep.
+
+defaults:
+  - ppfg_stag_compound
+
+experiment:
+  name: "ppfg_stag_compound_n10_smoke_math500"
+
+task:
+  n_problems: 10

@@ -1,0 +1,21 @@
+# Day-11.5 Phase 1: ξ_min sweep at 0.10 — Opus W2.1 catch.
+# Inherits qwen_n500_ppfg_stag.yaml on every axis EXCEPT min_compat_threshold,
+# which the anchor leaves at the default 0.0 (no anti-redundancy gate). Sweep
+# probes whether tightening the gate moves PPFG-stag off indep-parity.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_xi010"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  min_compat_threshold: 0.10
+
+task:
+  name: "math500"
+  n_problems: 500

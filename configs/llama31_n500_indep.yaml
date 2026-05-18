@@ -1,0 +1,20 @@
+# Day-8 Tier-A cross-arch: LLaMA-3.1-8B-Instruct, independent baseline at n=500.
+# 8B (vs Qwen's 7B) — gpu_memory_utilization lowered to 0.50 to leave headroom
+# for Math-Shepherd PRM co-load on 40GB A100.
+
+defaults:
+  - default
+
+experiment:
+  name: "llama31_n500_indep_math500"
+
+model:
+  base_model: "meta-llama/Llama-3.1-8B-Instruct"
+  gpu_memory_utilization: 0.50
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 500

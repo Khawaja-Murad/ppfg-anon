@@ -1,0 +1,13 @@
+# Day-4 smoke test: 20 problems, single seed, verify injection events fire.
+# Inherits all PPFG hyperparameters from configs/ppfg.yaml; only narrows the
+# problem cap and renames the experiment so the run dir is identifiable and
+# does NOT collide with the canonical Day-5 ppfg_math500 sweep.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "ppfg_smoke_math500"
+
+task:
+  n_problems: 20

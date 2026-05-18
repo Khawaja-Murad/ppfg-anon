@@ -1,0 +1,20 @@
+# Day-8 Tier-A: Qwen2.5-7B-Instruct anchor at n=500, independent baseline.
+# Re-runs the indep cell at FULL MATH500 to anchor the cross-architecture cells
+# at the same problem count — otherwise the n=100 paper anchor confounds the
+# comparison.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_n500_indep_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 500

@@ -1,0 +1,18 @@
+# Day-11.5 Phase 4: Qwen2.5-7B-Instruct n=500 GSM8K PPFG-random control.
+# Matched to qwen_n500_ppfg_stag_gsm8k on every axis except injection_rule.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_random_gsm8k"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "random"
+
+task:
+  name: "gsm8k"
+  n_problems: 500

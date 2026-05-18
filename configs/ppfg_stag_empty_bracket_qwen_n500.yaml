@@ -1,0 +1,35 @@
+# V12.B confound control (Day 13, 2026-05-16): PPFG-stag with empty-bracket
+# injection content. All targeting / extraction / gate logic identical to
+# qwen_n500_ppfg_stag.yaml; only the rendered injection text differs.
+#
+# Purpose: disentangle whether the §5.8 post-injection PRM depression
+# (mean Δ = −0.134, Wilcoxon p ≈ 1e-40) is driven by foreign-style step
+# content or by the out-of-distribution bracket-format wrapping. Same chains,
+# same trigger, same target-select, same gate, same fragment quality scalar
+# rendered in the bracket header; bullet body replaced with "(empty)".
+#
+# Predicted outcomes (Case i / ii / iii in the v12 prompt):
+#   (i)  empty-bracket also depresses PRM with similar magnitude → format penalty
+#   (ii) empty-bracket gives Δ ≈ 0 → §5.8 content-penalty reading holds
+#   (iii) empty-bracket gives Δ ∈ [-0.03, -0.05] → partial format effect
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_empty_bracket_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"        # identical to PPFG-stag
+  injection_format: "empty_bracket"   # V12.B.1 new format
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  max_injections_per_chain: 2
+
+task:
+  name: "math500"
+  n_problems: 500

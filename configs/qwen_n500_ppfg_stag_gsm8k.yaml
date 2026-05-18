@@ -1,0 +1,18 @@
+# Day-11.5 Phase 4: Qwen2.5-7B-Instruct n=500 GSM8K PPFG-stagnation.
+# Inherits ppfg.yaml hypers; only swaps task to gsm8k and rule to stagnation.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_gsm8k"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "gsm8k"
+  n_problems: 500

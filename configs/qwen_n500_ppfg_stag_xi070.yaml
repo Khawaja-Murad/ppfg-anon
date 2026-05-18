@@ -1,0 +1,21 @@
+# Day-11.5 Phase 1: ξ_min sweep at 0.70 — Opus W2.1 catch.
+# Inherits qwen_n500_ppfg_stag.yaml on every axis EXCEPT min_compat_threshold.
+# Strictest threshold; expected to suppress most injections — quantifies the
+# "no help even at gate-saturation" boundary of outcome (i).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_xi070"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  min_compat_threshold: 0.70
+
+task:
+  name: "math500"
+  n_problems: 500

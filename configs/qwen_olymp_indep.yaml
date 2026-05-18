@@ -1,0 +1,19 @@
+# Day-13 V13.B: Qwen2.5-7B-Instruct on OlympiadBench-math (English text-only),
+# n=500, independent baseline. Anchors the V13.B PPFG comparisons; head-slice
+# of the dataset. Three seeds run separately via SEED= sbatch override.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_olymp_indep"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "olympiadbench_math"
+  n_problems: 500

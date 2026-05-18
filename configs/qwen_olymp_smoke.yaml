@@ -1,0 +1,19 @@
+# Day-13 V13.B smoke: n=20 single-seed indep on OlympiadBench-math (English
+# text-only). Verifies the OlympiadBench loader and answer comparator land
+# non-zero Pass@1 before the full n=500 cells fire.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_olymp_smoke"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "olympiadbench_math"
+  n_problems: 20

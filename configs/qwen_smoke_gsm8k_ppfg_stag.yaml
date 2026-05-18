@@ -1,0 +1,20 @@
+# Day-11.5 smoke: n=10 single-seed PPFG-stagnation on GSM8K. Probes the
+# firing rate — gsm8k is easier than MATH500, chains die less, so we need
+# to verify injections fire at non-zero rate before committing the Phase 4
+# full cell.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_smoke_gsm8k_ppfg_stag"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "gsm8k"
+  n_problems: 10

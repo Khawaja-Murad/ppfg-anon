@@ -1,0 +1,17 @@
+defaults:
+  - default
+
+experiment:
+  name: "sanity"
+
+task:
+  n_problems: 4
+
+population:
+  n_chains: 4
+
+generation:
+  max_steps: 8
+
+eval:
+  k_values: [1, 2, 4]

@@ -1,0 +1,13 @@
+# Smoke β: anti-redundancy gate. Reject injection when best target's compat_score
+# (1 - cos sim of last-step embeddings) is below 0.15 — i.e., last-step cos sim
+# above 0.85 means the fragment is too similar to anything we could graft it onto.
+# Tests sub-problem 1: are fragments redundant w.r.t. their target's working context?
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_antiredund"
+
+ppfg:
+  min_compat_threshold: 0.15  # reject injections where last-step cos similarity > 0.85

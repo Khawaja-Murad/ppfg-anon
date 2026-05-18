@@ -1,0 +1,24 @@
+# Day-13 V13.D: Qwen2.5-7B-Instruct on MMLU-Pro (law+biology+philosophy
+# stratified, n=500), independent baseline. Anchors the V13.D PPFG
+# comparisons. Three seeds run separately via SEED= sbatch override.
+# Stratification seed is fixed at 42 inside the task loader for
+# cross-seed reproducibility.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_mmlupro_indep_versaprm"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+  prm: "UW-Madison-Lee-Lab/Llama-PRM800K"
+  prm_kind: "versaprm"
+  gpu_memory_utilization: 0.45
+
+baseline:
+  method: "independent"
+
+task:
+  name: "mmlu_pro"
+  n_problems: 500

@@ -1,0 +1,20 @@
+# Cross-arch v13 extension (llama × gpqa).
+defaults:
+  - ppfg
+
+experiment:
+  name: "llama31_gpqa_ppfg_random"
+
+model:
+  base_model: "meta-llama/Llama-3.1-8B-Instruct"
+
+ppfg:
+  injection_rule: "random"
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  max_injections_per_chain: 2
+
+task:
+  name: "gpqa_diamond"
+  n_problems: -1

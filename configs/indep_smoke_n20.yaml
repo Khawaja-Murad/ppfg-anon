@@ -1,0 +1,19 @@
+# Matched independent baseline at 20 problems, same seed as PPFG smokes.
+# Calibrates compat/stag/etc. smoke comparisons. Previously we were comparing
+# to the broader 100-problem indep run (Pass@1=0.545); this gives apples-to-apples.
+
+defaults:
+  - default
+
+experiment:
+  name: "indep_smoke_math500_n20"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 20
+
+population:
+  prune_threshold: 0.5    # match the τ_kill of the PPFG smokes for fair comparison

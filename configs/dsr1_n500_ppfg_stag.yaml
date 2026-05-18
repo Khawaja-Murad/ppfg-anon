@@ -1,0 +1,17 @@
+# Day-8 Tier-A cross-arch: DeepSeek-R1-Distill-Qwen-7B, PPFG-stagnation at n=500.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "dsr1_n500_ppfg_stag_math500"
+
+model:
+  base_model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 500

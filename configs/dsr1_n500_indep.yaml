@@ -1,0 +1,21 @@
+# Day-8 Tier-A cross-arch: DeepSeek-R1-Distill-Qwen-7B, independent baseline at n=500.
+# Note: R1-distilled model produces <think>...</think> reasoning traces.
+# Smoke must verify Pass@1 and answer_mode_rate are sane before full launch.
+# Still Qwen-family base — position in paper as 'Qwen-family replication' rather
+# than 'cross-architecture' to avoid W3 over-claim.
+
+defaults:
+  - default
+
+experiment:
+  name: "dsr1_n500_indep_math500"
+
+model:
+  base_model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 500

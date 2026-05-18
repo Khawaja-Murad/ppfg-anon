@@ -1,0 +1,12 @@
+# Contingency A re-smoke: τ_kill bumped 0.4 → 0.5 to fix the supply problem.
+# First smoke at τ_kill=0.4 produced only 8.75% prune rate (14/160 chains),
+# so injection rate was 15% (target ≥30%). Per CLAUDE.md §7, try τ_kill ∈ {0.5, 0.6}.
+
+defaults:
+  - ppfg_smoke
+
+experiment:
+  name: "ppfg_smoke_math500_tk05"
+
+population:
+  prune_threshold: 0.5

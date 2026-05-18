@@ -1,0 +1,16 @@
+# V13.B replacement smoke: NuminaMath-CoT (replaces OlympiadBench).
+defaults:
+  - default
+
+experiment:
+  name: "qwen_numina_smoke"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "numina_math"
+  n_problems: 20

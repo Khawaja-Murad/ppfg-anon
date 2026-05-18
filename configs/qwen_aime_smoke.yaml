@@ -1,0 +1,20 @@
+# Day-13 V13.A smoke: n=10 single-seed indep on AIME. Verifies the new task
+# loader, integer-answer extractor, and is_correct comparator work
+# end-to-end. AIME is hard — Pass@1 may be modest, but a non-zero figure
+# confirms the pipeline.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_aime_smoke"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "aime"
+  n_problems: 10

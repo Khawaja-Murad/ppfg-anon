@@ -1,0 +1,25 @@
+# V12.B.2 smoke config: n=10, seed 42, identical hyperparameters to
+# qwen_n500_ppfg_stag_empty_bracket. Used to verify the empty-bracket
+# injection format integrates correctly with the runner before firing
+# the 3-seed n=500 jobs.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_smoke_ppfg_stag_empty_bracket"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  injection_format: "empty_bracket"
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  max_injections_per_chain: 2
+
+task:
+  name: "math500"
+  n_problems: 10

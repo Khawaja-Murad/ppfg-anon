@@ -1,0 +1,16 @@
+# Cross-arch v13 extension (dsr1 × numina).
+defaults:
+  - default
+
+experiment:
+  name: "dsr1_numina_indep"
+
+model:
+  base_model: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "numina_math"
+  n_problems: -1

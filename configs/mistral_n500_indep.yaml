@@ -1,0 +1,17 @@
+# Day-8 Tier-A cross-arch: Mistral-7B-Instruct-v0.3, independent baseline at n=500.
+
+defaults:
+  - default
+
+experiment:
+  name: "mistral_n500_indep_math500"
+
+model:
+  base_model: "mistralai/Mistral-7B-Instruct-v0.3"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 500

@@ -1,0 +1,18 @@
+# Smoke δ: combined α+γ. Stagnation injection rule + tight last_step_inline format
+# + max_injections_per_chain=1 to prevent multi-inj corruption.
+#
+# Hypothesis: α v3 showed stagnation rule cuts target pruned_frac (62.5%→25%) and
+# rescues mode_rate (0.85→0.75) but Pass@1 still 0.45 vs indep 0.545. γ rescues
+# mode_rate (0.75) but Pass@1 0.444. β v3 single-target multi-inj seen 5×.
+# Combine: pick survivable targets (α), minimize context bloat (γ), cap inj/chain (1).
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_delta"
+
+ppfg:
+  injection_rule: "stagnation"
+  injection_format: "last_step_inline"
+  max_injections_per_chain: 1

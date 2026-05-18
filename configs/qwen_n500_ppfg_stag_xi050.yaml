@@ -1,0 +1,20 @@
+# Day-11.5 Phase 1: ξ_min sweep at 0.50 — Opus W2.1 catch.
+# Inherits qwen_n500_ppfg_stag.yaml on every axis EXCEPT min_compat_threshold.
+# Middle of the sweep; chosen as the smoke-config threshold (Step 7).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_xi050"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  min_compat_threshold: 0.50
+
+task:
+  name: "math500"
+  n_problems: 500

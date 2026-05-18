@@ -1,0 +1,19 @@
+# Day-13 V13.B: Qwen2.5-7B-Instruct on OlympiadBench-math, n=500, PPFG-random
+# control. Matched to qwen_olymp_ppfg_stag.yaml on every axis except
+# injection_rule.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_olymp_ppfg_random"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "random"
+
+task:
+  name: "olympiadbench_math"
+  n_problems: 500

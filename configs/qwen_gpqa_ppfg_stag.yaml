@@ -1,0 +1,22 @@
+# V13.C GPQA-Diamond PPFG-stag, Math-Shepherd PRM (default).
+# Cross-PRM second arm (VersaPRM) blocked on V13.0 smoke.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_gpqa_ppfg_stag"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  max_injections_per_chain: 2
+
+task:
+  name: "gpqa_diamond"
+  n_problems: 198

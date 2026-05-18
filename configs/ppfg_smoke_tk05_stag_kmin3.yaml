@@ -1,0 +1,15 @@
+# Smoke θ: stagnation rule + k_min=3 (was 2). Contingency A diagnostic item 2:
+# "If fragments are mostly 2-step minimum-length, the k_min may be screening out
+# the salvageable content." α v3 fragments had mean=3.38, min=2 — bump floor to 3.
+# Stacked on the winning targeting rule (stagnation) to test whether longer
+# fragments + survivable-target selection together lift Pass@1.
+
+defaults:
+  - ppfg_smoke_tk05_stag
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_stag_kmin3"
+
+ppfg:
+  k_min: 3
+  k_max: 10

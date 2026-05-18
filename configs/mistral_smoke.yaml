@@ -1,0 +1,18 @@
+# Day-8 P3.1 smoke: Mistral-7B-Instruct-v0.3 + Math-Shepherd PRM, n=20, seed 42, indep.
+
+defaults:
+  - default
+
+experiment:
+  name: "mistral_smoke_math500"
+  seed: 42
+
+model:
+  base_model: "mistralai/Mistral-7B-Instruct-v0.3"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "math500"
+  n_problems: 20

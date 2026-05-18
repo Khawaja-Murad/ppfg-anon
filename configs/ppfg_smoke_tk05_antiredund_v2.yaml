@@ -1,0 +1,13 @@
+# Smoke β v2: bump min_compat_threshold 0.15 → 0.30 because v1 was a no-op.
+# The tk=0.5/compat smoke's compat score distribution had min=0.16, so 0.15
+# caught nothing. β v1 metrics were identical to compat tk=0.5 (Pass@1=0.463,
+# inj rate 30%, mean compat 0.648). 0.30 catches ~6% of v1's injections.
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_antiredund_v2"
+
+ppfg:
+  min_compat_threshold: 0.30

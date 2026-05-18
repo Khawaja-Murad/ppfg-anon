@@ -1,0 +1,12 @@
+# Option 1: Same as ppfg_smoke_tk05 but injection_rule=stagnation
+# instead of compat. Tests whether the targeting rule (not the
+# threshold) is the issue. Paired against ppfg_smoke_tk05 result.
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_stag"
+
+ppfg:
+  injection_rule: "stagnation"

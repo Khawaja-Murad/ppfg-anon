@@ -1,0 +1,19 @@
+# Day-6 matched-compute belt-and-braces row: Best-of-N at N=8 (matches indep/SMC/PPFG
+# compute footprint of ~3700 tokens/problem), 3 seeds, MATH500 first-100. Goal: confirm
+# that the §5.1 Table 1 finding "Best-of-N loses at every k ≤ 8" is not an artifact of
+# the N=16 mismatched-compute setting; the matched-compute setting can only make the
+# finding stronger or equally bad.
+
+defaults:
+  - default
+
+experiment:
+  name: "bon_n8_math500"
+
+baseline:
+  method: "best_of_n"
+  bon_n: 8
+
+task:
+  name: "math500"
+  n_problems: 100

@@ -1,0 +1,19 @@
+# Day-11.5 Phase 4: Qwen2.5-7B-Instruct n=500 GSM8K independent baseline.
+# Replication probe — does the Day-5 parity finding hold off-distribution
+# (grade-school arithmetic vs. competition math)?
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_n500_indep_gsm8k"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "gsm8k"
+  n_problems: 500

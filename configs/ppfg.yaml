@@ -1,0 +1,20 @@
+defaults:
+  - default
+
+experiment:
+  name: "ppfg_math500"
+
+baseline:
+  method: "ppfg"
+
+ppfg:
+  enabled: true
+  extract_threshold: 0.6
+  k_min: 2
+  k_max: 8
+  injection_rule: "compat"
+  max_injections_per_chain: 2
+
+task:
+  name: "math500"
+  n_problems: 500    # full benchmark

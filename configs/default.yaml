@@ -1,0 +1,59 @@
+# Default config — inherits everything from this and overrides per run.
+
+experiment:
+  name: "default"
+  seed: 42
+  output_dir: "results/${experiment.name}"
+  log_to_wandb: true
+  wandb_project: "hyp-forest-emnlp26"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"   # or "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+  prm: "peiyi9979/math-shepherd-mistral-7b-prm"
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  dtype: "bfloat16"
+  tensor_parallel_size: 1                  # bump to 2 if you have 2x A100 80GB
+  gpu_memory_utilization: 0.55           # leave headroom for Math-Shepherd PRM (~14GB fp16) on 40GB A100; bump to 0.75 on 80GB
+  max_model_len: 4096
+
+generation:
+  temperature: 0.8
+  top_p: 0.95
+  max_step_tokens: 256                     # max tokens per reasoning step
+  max_steps: 16                            # max reasoning steps per chain
+  step_separator: "\n\n"                   # stop token between steps
+  prompt_template: "math_cot"              # see utils/prompts.py
+
+population:
+  n_chains: 8                              # parallel CoT chains per problem
+  prune_threshold: 0.4                     # τ_kill — chain pruned if step PRM < this
+  promote_on_complete: true                # chains marking final answer go to PROMOTED
+
+ppfg:
+  enabled: false                           # toggle on for PPFG runs
+  extract_threshold: 0.6                   # τ_extract — only extract if frag mean PRM > this
+  k_min: 2                                 # min fragment length (steps)
+  k_max: 8                                 # max fragment length (steps)
+  injection_rule: "compat"                 # one of: compat, stagnation, random
+  max_injections_per_chain: 2              # cap to avoid context bloat
+
+baseline:
+  method: "independent"                    # one of: independent, smc, best_of_n, ppfg
+  smc_resample_temperature: 0.5            # only used if method == smc
+  bon_n: 16                                # only used if method == best_of_n
+
+task:
+  name: "math500"                          # one of: math500, gpqa
+  n_problems: 100                          # cap for fast iteration; -1 = all
+  problem_subset: null                     # optional list of problem indices
+
+eval:
+  k_values: [1, 2, 4, 8, 16]               # for Pass@k
+  diversity_metrics: ["semantic", "answer_mode"]
+  compute_track: true                      # track tokens generated per problem
+
+credit_assignment:
+  # Post-hoc PopMC-GRPO value estimation, only run if --analyze flag set
+  enabled: false
+  k_rollouts: 8                            # K in V(s_{t+1}) = (1/K) sum_k R(tau_k)
+  rollout_max_tokens: 512

@@ -1,0 +1,12 @@
+# Smoke γ: tighter injection format. Render only the highest-PRM (last) fragment
+# step as a short inline note instead of the multi-line bracketed bullet block.
+# Tests sub-problem 3: does the bracket+bullet block displace target's working memory?
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_tightfmt"
+
+ppfg:
+  injection_format: "last_step_inline"

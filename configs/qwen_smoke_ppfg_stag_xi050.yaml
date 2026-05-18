@@ -1,0 +1,20 @@
+# Day-11.5 smoke: n=10 single-seed verifier for the ξ_min gate (middle of
+# the Phase 1 sweep). Confirms the min_compat_threshold knob is actually
+# wired through — if no injections get rejected at ξ=0.50, the gate is dead.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_smoke_ppfg_stag_xi050"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  min_compat_threshold: 0.50
+
+task:
+  name: "math500"
+  n_problems: 10

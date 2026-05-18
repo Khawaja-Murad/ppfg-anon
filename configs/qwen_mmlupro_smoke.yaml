@@ -1,0 +1,19 @@
+# Day-13 V13.D smoke: n=20 single-seed indep on MMLU-Pro (law+biology+
+# philosophy). Verifies the MMLU-Pro loader, 10-choice prompt, and A-J
+# letter extractor work end-to-end.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_mmlupro_smoke"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+task:
+  name: "mmlu_pro"
+  n_problems: 20

@@ -1,0 +1,13 @@
+# Diversity-amplification test: same as ppfg_smoke_tk05 but temperature
+# bumped 0.8 → 1.2. Tests the "base-model converges too fast for PPFG
+# to find genuinely diverse fragments" hypothesis. Paired against
+# ppfg_smoke_tk05 (compat rule, tk=0.5) and against the indep baseline.
+
+defaults:
+  - ppfg_smoke_tk05
+
+experiment:
+  name: "ppfg_smoke_math500_tk05_t12"
+
+generation:
+  temperature: 1.2

@@ -1,0 +1,34 @@
+# Day-7 compound-gate end-to-end validation (2026-05-15).
+#
+# Five-gate compound stagnation rule (see src/hyp_forest/ppfg/policy.py
+# _is_compound_stagnating). The dry-run on the 55 Day-5 events at prm_low_t=0.60
+# (§3.6.17, agent_transfer.md) projected an arithmetic ceiling on `answer_mode_rate`
+# movement of ~0.6 absolute points at this threshold. This config runs the rule
+# end-to-end so the §5.3.2 line of evidence is a measurement, not a projection.
+#
+# Inherits all other PPFG hyperparameters from configs/ppfg.yaml (and default.yaml):
+#   - prune_threshold = 0.4 (τ_kill) — matched to Day-5 PPFG-stag sweep
+#   - n_chains = 8
+#   - extract_threshold = 0.6, k_min = 2, k_max = 8, max_injections_per_chain = 2
+#   - injection_format = bracket_bullet
+# Overrides only:
+#   - injection_rule: stagnation_compound
+#   - prm_low_t/prm_flat_t/headroom_budget/liveness_min — the five-gate parameters
+#   - task.n_problems: 100 (Day-5 headline sweep cap)
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "ppfg_stag_compound_math500"
+
+ppfg:
+  injection_rule: "stagnation_compound"
+  prm_low_t: 0.60
+  prm_flat_t: 0.05
+  headroom_budget: 4
+  liveness_min: 3
+
+task:
+  name: "math500"
+  n_problems: 100

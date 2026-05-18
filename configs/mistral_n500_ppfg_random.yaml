@@ -1,0 +1,17 @@
+# Day-8 Tier-A cross-arch: Mistral-7B-Instruct-v0.3, PPFG-random control at n=500.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "mistral_n500_ppfg_random_math500"
+
+model:
+  base_model: "mistralai/Mistral-7B-Instruct-v0.3"
+
+ppfg:
+  injection_rule: "random"
+
+task:
+  name: "math500"
+  n_problems: 500
