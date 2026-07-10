@@ -59,6 +59,11 @@ class PPFGPolicyConfig:
     prm_flat_t: float = 0.05      # gate 2: PRM range over last 3 steps must be below this
     headroom_budget: int = 4      # gate 3: at least this many steps remaining before max_steps
     liveness_min: int = 3         # gate 5: at least this many chains active including target
+    # Reviewer-#2 E2 (Day-20 add-on): when True, every injection has a brief
+    # self-check directive appended; the target's next decoded step is the
+    # self-check, the one after is the actual continuation. Lightweight
+    # version of separate-solver-pass re-attention (Prediction-1 in §6).
+    reattention_pass: bool = False
 
 
 class PPFGPolicy:
@@ -76,7 +81,10 @@ class PPFGPolicy:
             k_max=config.k_max,
         )
         self.compat = compat_scorer
-        self.injector = FragmentInjector(injection_format=config.injection_format)
+        self.injector = FragmentInjector(
+            injection_format=config.injection_format,
+            reattention_pass=config.reattention_pass,
+        )
         self._rng = random.Random(config.seed)
 
     def run_hook(self, population: Population, newly_pruned: list[Chain]) -> None:

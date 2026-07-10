@@ -1,0 +1,34 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity check requested by
+# Reviewer 4fDQ ("How sensitive are the conclusions to larger population
+# sizes such as N=16, N=32?"). Independent-baseline anchor at N=32, matched
+# to configs/qwen_n100_ppfg_stag_N32.yaml, on the canonical first-100 slice
+# for fast turnaround.
+#
+# CORRECTED 2026-07-09: the first attempt at this config bumped
+# gpu_memory_utilization to 0.70, reasoning (incorrectly) that N=32 needed
+# more vLLM KV-cache headroom. vLLM batches concurrent chains dynamically
+# within its existing budget -- it doesn't need more reservation for higher
+# N. What 0.70 actually did was starve the separately-loaded Math-Shepherd
+# PRM (plain HF transformers, not vLLM-budgeted, needs ~14GB on top of
+# vLLM's reservation), causing all 6 N=32 cells to OOM during PRM loading.
+# Reverted to the inherited default (0.55), which already reserves PRM
+# headroom by design and is what the successful N=16 cells used unmodified.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_n100_indep_N32"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+population:
+  n_chains: 32
+
+task:
+  name: "math500"
+  n_problems: 100

@@ -1,0 +1,27 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity, N=256 arm — extends
+# the N=8->16->32->64 series. PPFG-stagnation at N=256, matched to
+# configs/qwen_n100_indep_N256.yaml, first-100 slice. Plain stagnation rule
+# (NOT compound gate) — like-for-like with the N=16/32/64 cells (tau_kill=0.4,
+# k_min=2, k_max=8, extract_threshold=0.6, max_injections_per_chain=2,
+# injection_format=bracket_bullet).
+#
+# NO gpu_memory_utilization override — see qwen_n100_indep_N256.yaml rationale.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n100_ppfg_stag_N256"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+population:
+  n_chains: 256
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 100

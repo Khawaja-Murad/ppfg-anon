@@ -1,0 +1,33 @@
+# Reviewer-#2 E4 (Day-20): PPFG-stag-compound at N=128 on MATH500 first-100.
+#
+# The most aggressive density scaling cell. Tests whether the compound-gate's
+# §5.3.2 structural emptiness holds at 16x the headline-config population size.
+# At N=128 the candidate donor-target pairing space grows substantially; if the
+# gate STILL fires < 1% of problems, §5.3.2 generalizes cleanly. If the gate
+# now fires meaningfully and PPFG-stag-compound beats indep at N=128 by more
+# than seed-sigma, the §5.3.2 finding is conditioned on the N=8 operating
+# point and must be re-scoped accordingly.
+
+defaults:
+  - ppfg_stag_compound
+
+experiment:
+  name: "qwen_n100_ppfg_stag_compound_N128_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+  gpu_memory_utilization: 0.75
+  max_model_len: 2048
+
+population:
+  n_chains: 128
+
+ppfg:
+  prm_low_t: 0.60
+  prm_flat_t: 0.05
+  headroom_budget: 4
+  liveness_min: 3
+
+task:
+  name: "math500"
+  n_problems: 100

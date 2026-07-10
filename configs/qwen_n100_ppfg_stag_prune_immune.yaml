@@ -1,0 +1,39 @@
+# ARR rebuttal (2026-07-09): PRM-decoupled check requested by Reviewer 7Diq
+# ("A PRM-free evaluation, e.g. measuring downstream correctness without
+# PRM-guided pruning after injection, would better isolate the transfer
+# mechanism from the scorer's reaction to it").
+#
+# A chain that receives an injection is exempt from PRM-threshold pruning
+# for post_injection_prune_immunity_steps steps afterward (still subject to
+# promote-on-complete and max-steps). This separates "the graft content
+# doesn't help" from "the PRM's punitive reaction to the graft kills chains
+# that would otherwise have recovered" -- exactly the ambiguity in the
+# existing 16.6% per-injection success-rate stat (Appendix M), which
+# conflates early-pruned and survived-but-wrong outcomes.
+#
+# Window = 3 steps, matching the existing post-injection hazard analysis's
+# "within 3 steps" convention (scripts/post_injection_prune_analysis.py)
+# for direct comparability. n_problems=100 to match the canonical Day-5
+# ppfg_stag_math500 n=100 cells (seeds 42-44) used as the comparator --
+# same hypers otherwise (tau_kill=0.4, k_min=2, k_max=8,
+# extract_threshold=0.6, max_injections_per_chain=2,
+# injection_format=bracket_bullet, injection_rule=stagnation).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n100_ppfg_stag_prune_immune"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+population:
+  post_injection_prune_immunity_steps: 3
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 100

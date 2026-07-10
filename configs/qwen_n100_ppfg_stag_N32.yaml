@@ -1,0 +1,32 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity check requested by
+# Reviewer 4fDQ ("How sensitive are the conclusions to larger population
+# sizes such as N=16, N=32?"). PPFG-stagnation at N=32, matched to
+# configs/qwen_n100_indep_N32.yaml, on the canonical first-100 slice for
+# fast turnaround. Hypers matched to configs/qwen_n500_ppfg_stag.yaml
+# (tau_kill=0.4, k_min=2, k_max=8, extract_threshold=0.6,
+# max_injections_per_chain=2, injection_format=bracket_bullet,
+# injection_rule=stagnation); population.n_chains=32, task.n_problems=100.
+#
+# CORRECTED 2026-07-09: see configs/qwen_n100_indep_N32.yaml -- the initial
+# gpu_memory_utilization=0.70 override caused all 6 N=32 cells to OOM while
+# loading the separately-budgeted Math-Shepherd PRM. Reverted to the
+# inherited default (0.55).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n100_ppfg_stag_N32"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+population:
+  n_chains: 32
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 100

@@ -1,0 +1,29 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity check requested by
+# Reviewer 4fDQ ("How sensitive are the conclusions to larger population
+# sizes such as N=16, N=32?"). PPFG-stagnation at N=16, matched to
+# configs/qwen_n100_indep_N16.yaml, on the canonical first-100 slice
+# (matched-N anchor convention) for fast turnaround within the response
+# window. Hypers matched to configs/qwen_n500_ppfg_stag.yaml (tau_kill=0.4,
+# k_min=2, k_max=8, extract_threshold=0.6, max_injections_per_chain=2,
+# injection_format=bracket_bullet, injection_rule=stagnation); only
+# population.n_chains lifts from 8 to 16 and task.n_problems drops to 100
+# to fit the response window.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n100_ppfg_stag_N16"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+population:
+  n_chains: 16
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 100

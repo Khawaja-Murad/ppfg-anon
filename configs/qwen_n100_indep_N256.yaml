@@ -1,0 +1,29 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity, N=256 arm — extends
+# the N=8->16->32->64 series to answer Reviewer 4fDQ ("...larger population
+# sizes such as N=16, N=32, or beyond?"). Independent anchor at N=256, matched
+# to configs/qwen_n100_ppfg_stag_N256.yaml, first-100 slice.
+#
+# NO gpu_memory_utilization override: higher N does not need more vLLM KV
+# reservation (vLLM batches concurrently within budget; large N just batches
+# fewer at a time = slower, not OOM). An override starves the separately-loaded
+# Math-Shepherd PRM and OOMs — the N=32 gpu_memory_utilization=0.70 mistake.
+# Inherited default (0.55) is what the successful N=16/32/64 cells used.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_n100_indep_N256"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+population:
+  n_chains: 256
+
+task:
+  name: "math500"
+  n_problems: 100

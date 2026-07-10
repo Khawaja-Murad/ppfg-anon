@@ -1,0 +1,33 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity, N=64 arm — extends
+# the N=8 -> N=16 -> N=32 series to answer Reviewer 4fDQ ("How sensitive are
+# the conclusions to larger population sizes such as N=16, N=32, or beyond?").
+# PPFG-stagnation at N=64, matched to configs/qwen_n100_indep_N64.yaml, on the
+# canonical first-100 slice. Plain stagnation rule (injection_rule=stagnation),
+# NOT the compound gate — this is the like-for-like extension of the N=16/N=32
+# cells, whose hypers this mirrors (tau_kill=0.4, k_min=2, k_max=8,
+# extract_threshold=0.6, max_injections_per_chain=2,
+# injection_format=bracket_bullet).
+#
+# NOTE: deliberately NO gpu_memory_utilization override — see
+# configs/qwen_n100_indep_N64.yaml for the rationale (higher N does not need
+# more vLLM reservation; an override starves the separately-loaded PRM and
+# OOMs, as the earlier N=32 attempt did). Inherited default (0.55) is correct.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n100_ppfg_stag_N64"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+population:
+  n_chains: 64
+
+ppfg:
+  injection_rule: "stagnation"
+
+task:
+  name: "math500"
+  n_problems: 100

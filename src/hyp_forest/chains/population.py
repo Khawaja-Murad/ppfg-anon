@@ -52,6 +52,14 @@ class PopulationConfig:
     temperature: float = 0.8
     top_p: float = 0.95
     max_step_tokens: int = 256
+    post_injection_prune_immunity_steps: int = 0
+    # If >0, a chain that received an injection is exempt from PRM-threshold
+    # pruning for this many steps after the injection (still subject to
+    # promote-on-complete and max-steps). 0 (default) reproduces prior
+    # behavior exactly. Added for the ARR rebuttal PRM-decoupled check:
+    # does suppressing the *pruning consequence* of the post-injection PRM
+    # dip change the injected chain's eventual correctness, separating the
+    # scorer's punitive reaction from the content's own effect.
 
 
 class Population:
@@ -86,6 +94,15 @@ class Population:
     @property
     def is_done(self) -> bool:
         return len(self.active_chains) == 0 or self.step_idx >= self.config.max_steps
+
+    def _is_prune_immune(self, c: Chain) -> bool:
+        """True if c is within its post-injection prune-immunity window."""
+        window = self.config.post_injection_prune_immunity_steps
+        if window <= 0 or not c.injected_fragments:
+            return False
+        last_inj_step = max(f.injected_at_step for f in c.injected_fragments)
+        steps_since_injection = c.n_steps - last_inj_step
+        return 0 <= steps_since_injection <= window
 
     def advance(
         self,
@@ -134,8 +151,10 @@ class Population:
                 c.final_answer = answer
                 c.status = ChainStatus.PROMOTED
                 continue
-            # Prune on low PRM
+            # Prune on low PRM (unless within post-injection immunity window)
             if latest is not None and latest < self.config.prune_threshold:
+                if self._is_prune_immune(c):
+                    continue
                 c.status = ChainStatus.PRUNED
                 newly_pruned.append(c)
                 continue

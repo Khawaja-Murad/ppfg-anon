@@ -1,0 +1,27 @@
+# Reviewer-#2 E1 (Day-20): Seamless injection on Qwen2.5-7B + MATH500 (n=500).
+#
+# Neutralizes the format-confound critique: the fragment is rendered as native
+# 'Step N: ...' continuation text rather than the default bracketed-demonstration
+# block. If seamless-stag still sits within seed-sigma of indep on Pass@k and
+# mode_rate, the format-pollution-dominates reading is falsified and the
+# inertness verdict holds under a cleaner injection contract.
+#
+# Hypers MATCHED to configs/qwen_n500_ppfg_stag.yaml; only ppfg.injection_format
+# overrides to 'seamless'.
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_seamless_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  injection_format: "seamless"
+
+task:
+  name: "math500"
+  n_problems: 500

@@ -1,0 +1,26 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity check requested by
+# Reviewer 4fDQ ("How sensitive are the conclusions to larger population
+# sizes such as N=16, N=32?"). Independent-baseline anchor at N=16, matched
+# to configs/qwen_n100_ppfg_stag_N16.yaml, on the canonical first-100 slice
+# (matched-N anchor convention) for fast turnaround within the response
+# window. Seeds 42-44 via SEED env at sbatch time, matching the paper's
+# canonical seeds.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_n100_indep_N16"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+population:
+  n_chains: 16
+
+task:
+  name: "math500"
+  n_problems: 100

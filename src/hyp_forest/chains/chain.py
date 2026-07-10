@@ -89,13 +89,15 @@ class Chain:
         for i, s in enumerate(steps_with_injections):
             if i in inject_before:
                 for t in inject_before[i]:
-                    rendered.append(t)
+                    if t.strip():  # skip null-injection markers (empty text): immunity without a graft
+                        rendered.append(t)
             rendered.append(f"Step {i + 1}: {s.strip()}")
 
         # Catch any injections that happened after the last step (about to be the next step)
         if len(steps_with_injections) in inject_before:
             for t in inject_before[len(steps_with_injections)]:
-                rendered.append(t)
+                if t.strip():
+                    rendered.append(t)
 
         if rendered:
             parts.append(step_separator.join(rendered))

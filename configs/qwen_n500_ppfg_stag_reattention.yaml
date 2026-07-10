@@ -1,0 +1,35 @@
+# Reviewer-#2 E2 (Day-20): Re-attention pass after injection on Qwen2.5-7B + MATH500.
+#
+# Lightweight version of Prediction-1 (separate-solver-pass re-attention). When an
+# injection happens, the next decoded step is a brief self-check that explicitly
+# evaluates the borrowed fragment; the step after that is the actual continuation.
+# This costs one extra step per injected chain.
+#
+# Diagnostic value: if reattention_pass-stag beats indep on Pass@k while
+# default-stag does not, then re-attention is the missing compensating
+# ingredient and the §6 falsifiable-boundary claim is validated. If
+# reattention_pass-stag stays at parity, the inertness finding survives a
+# stronger test that incorporates a re-attention forward pass.
+#
+# Hypers MATCHED to configs/qwen_n500_ppfg_stag.yaml; only ppfg.reattention_pass
+# overrides to True. Note max_steps may want bumping if many chains accumulate
+# self-check steps; we keep it at default 16 since each chain gets at most
+# max_injections_per_chain=2 extra self-check steps (i.e., 18 effective).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n500_ppfg_stag_reattention_math500"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+ppfg:
+  injection_rule: "stagnation"
+  injection_format: "bracket_bullet"
+  reattention_pass: true
+
+task:
+  name: "math500"
+  n_problems: 500

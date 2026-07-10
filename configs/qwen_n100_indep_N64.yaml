@@ -1,0 +1,33 @@
+# ARR rebuttal (2026-07-09): population-size sensitivity, N=64 arm — extends
+# the N=8 -> N=16 -> N=32 series to answer Reviewer 4fDQ ("How sensitive are
+# the conclusions to larger population sizes such as N=16, N=32, or beyond?").
+# Independent-baseline anchor at N=64, matched to
+# configs/qwen_n100_ppfg_stag_N64.yaml, on the canonical first-100 slice.
+#
+# NOTE: deliberately NO gpu_memory_utilization override. vLLM batches
+# concurrent chains dynamically within its existing KV budget regardless of N,
+# so higher N does NOT need more vLLM reservation. An override here starves the
+# separately-loaded Math-Shepherd PRM (~14GB, plain HF transformers, not
+# vLLM-budgeted) and OOMs during PRM load — that is exactly what the earlier
+# N=32 gpu_memory_utilization=0.70 attempt did. The inherited default (0.55)
+# already reserves PRM headroom by design and is what the successful N=16/N=32
+# cells used unmodified.
+
+defaults:
+  - default
+
+experiment:
+  name: "qwen_n100_indep_N64"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+baseline:
+  method: "independent"
+
+population:
+  n_chains: 64
+
+task:
+  name: "math500"
+  n_problems: 100

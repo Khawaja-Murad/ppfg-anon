@@ -1,0 +1,40 @@
+# ARR rebuttal (2026-07-09): MATCHED-IMMUNITY CONTROL for the PRM-free ablation
+# Reviewer 7Diq (and the council) asked for. It is IDENTICAL to
+# configs/qwen_n100_ppfg_stag_prune_immune.yaml (the treatment arm: stagnation
+# rule, post_injection_prune_immunity_steps=3, same hypers) EXCEPT the
+# injection renders as `null` — zero content is spliced into the target, but
+# the InjectedFragment record is still created so the chain receives the
+# identical prune-immunity window and identical max-injection bookkeeping.
+#
+# Purpose: the treatment arm confounds two things a grafted+immune chain gets:
+# (a) the extra decoding budget the immunity window grants, and (b) the graft
+# CONTENT. This control holds (a) constant and removes (b). The contrast
+# treatment - control therefore isolates the causal effect of grafted content
+# with post-injection pruning disabled:
+#   * treatment ≈ control  -> graft content adds nothing even when survival is
+#     granted; the content channel is empty and the null is not a PRM artifact.
+#   * treatment  > control  -> graft content helps once the PRM's punitive
+#     pruning is held off; a real benefit was masked by content-driven
+#     mis-pruning (a positive stepping-stone).
+#
+# Matched to the treatment on the canonical first-100 slice, 3 seeds (42-44).
+
+defaults:
+  - ppfg
+
+experiment:
+  name: "qwen_n100_ppfg_stag_prune_immune_nullctrl"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+
+population:
+  post_injection_prune_immunity_steps: 3
+
+ppfg:
+  injection_rule: "stagnation"
+  injection_format: "null"
+
+task:
+  name: "math500"
+  n_problems: 100

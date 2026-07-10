@@ -106,6 +106,7 @@ def run_one_problem(
             prm_flat_t=cfg["ppfg"].get("prm_flat_t", 0.05),
             headroom_budget=cfg["ppfg"].get("headroom_budget", 4),
             liveness_min=cfg["ppfg"].get("liveness_min", 3),
+            reattention_pass=cfg["ppfg"].get("reattention_pass", False),
         )
         policy = PPFGPolicy(ppfg_cfg, compat_scorer)
         pop = Population(
@@ -220,6 +221,8 @@ def main():
         temperature=cfg["generation"]["temperature"],
         top_p=cfg["generation"]["top_p"],
         max_step_tokens=cfg["generation"]["max_step_tokens"],
+        post_injection_prune_immunity_steps=cfg["population"].get(
+            "post_injection_prune_immunity_steps", 0),
     )
 
     # Run all problems

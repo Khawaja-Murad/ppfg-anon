@@ -82,6 +82,34 @@ def test_chain_build_prompt_with_injection():
     assert "Step 3:" in prompt  # next step to be generated
 
 
+def test_null_injection_control_grants_record_but_no_text():
+    """Matched-immunity control (rebuttal 2026-07-09): a 'null' injection must
+    create the InjectedFragment record (so prune-immunity + max-injection
+    bookkeeping fire identically to a real graft) while splicing ZERO content
+    into the prompt. This isolates graft-content value from the extra decoding
+    budget the immunity window grants."""
+    from hyp_forest.ppfg.injector import format_fragment_as_injection, FragmentInjector
+    from hyp_forest.ppfg.extractor import Fragment
+    frag = Fragment(
+        source_chain_id=7, steps=["Grafted content that must NOT appear."],
+        prm_scores=[0.9], quality=0.9,
+    )
+    # null format renders empty text
+    assert format_fragment_as_injection(frag, "null") == ""
+    # inject() still records the fragment (immunity/bookkeeping key off this)
+    c = Chain(chain_id=0, problem="x", base_prompt="<sys>solve</sys>")
+    c.steps = ["First step.", "Second step."]
+    injector = FragmentInjector(injection_format="null")
+    rec = injector.inject(c, frag, compat_score=0.4)
+    assert len(c.injected_fragments) == 1           # record exists -> immunity applies
+    assert rec.injection_text == ""                 # but no content
+    assert rec.injected_at_step == 2
+    prompt = c.build_prompt()
+    assert "Grafted content that must NOT appear." not in prompt  # zero graft in prompt
+    assert "First step." in prompt and "Second step." in prompt   # own steps intact
+    assert "Step 3:" in prompt                                    # next-step anchor intact
+
+
 # ---------------------------------------------------------------------------
 # FragmentExtractor
 # ---------------------------------------------------------------------------
