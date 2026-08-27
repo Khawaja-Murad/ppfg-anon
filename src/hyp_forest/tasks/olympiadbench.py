@@ -119,6 +119,8 @@ class OlympiadBenchMath(Task):
             cand = parse(candidate)
             return bool(verify(gold, cand))
         except ImportError:
+            from hyp_forest.comparator_guard import warn_if_degraded
+            warn_if_degraded()
             return _fallback_compare(candidate, problem.answer)
         except Exception as e:
             logger.debug(f"math_verify error on '{candidate}' vs '{problem.answer}': {e}")

@@ -30,6 +30,8 @@ def answers_equivalent(pred, gold):
         from math_verify import parse, verify
         return verify(parse(gold), parse(pred))
     except Exception:
+        from hyp_forest.comparator_guard import warn_if_degraded
+        warn_if_degraded()
         return False
 
 

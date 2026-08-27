@@ -49,6 +49,8 @@ def answers_equivalent(pred: str | None, gold: str | None) -> bool:
         from math_verify import parse, verify  # type: ignore
         return verify(parse(gold), parse(pred))
     except ImportError:
+        from hyp_forest.comparator_guard import warn_if_degraded
+        warn_if_degraded()
         return False
     except Exception:
         return False

@@ -116,6 +116,8 @@ class NuminaMath(Task):
             except Exception:
                 pass
         except ImportError:
+            from hyp_forest.comparator_guard import warn_if_degraded
+            warn_if_degraded()
             pass
         # Fallback: normalized string comparison
         cand_boxed = _extract_boxed_answer(candidate)
