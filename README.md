@@ -7,11 +7,6 @@ Grafting Is Inert: Evidence from Three Reasoning LMs"**
 Khawaja Murad ul Hassan (QLU.ai, Islamabad) and
 Mehran Ebrahimi (Faculty of Science, Ontario Tech University, Oshawa, ON, Canada).
 
-> arXiv: *link to be added on posting.*
-> This repository was previously an anonymized ARR release; it is now public
-> and de-anonymized. The repository name is retained so that links in the
-> ARR May 2026 review thread keep resolving.
-
 **What the paper reports.** PPFG extracts the high-PRM prefix of a chain at
 the moment a process reward model prunes it, and grafts it verbatim into a
 still-decoding sibling. Across three base LMs, six reasoning benchmarks, two
